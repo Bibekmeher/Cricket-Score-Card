@@ -54,7 +54,7 @@ const ScoreBoard = () => {
   const [hasMatchEnded, setMatchEnded] = useState(false);
 
   // Parse data from localStorage, with a fallback in case data is null
-  const data = JSON.parse(localStorage.getItem('data')) || {};
+  const data = JSON.parse(localStorage.getItem('gameData')) || {};
   console.log(data);
   
 
