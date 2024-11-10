@@ -18,42 +18,53 @@ import './ScoreBoard.css'
 import { radioGroupBoxstyle } from './ui/RadioGroupBoxStyle'
 
 const ScoreBoard = () => {
-  const [inningNo, setInningNo] = useState(1)
-  const [match, setMatch] = useState({ inning1: { batters: [], bowlers: [] }, inning2: { batters: [], bowlers: [] } })
-  const [currentRunStack, setCurrentRunStack] = useState([])
-  const [totalRuns, setTotalRuns] = useState(0)
-  const [extras, setExtras] = useState({ total: 0, wide: 0, noBall: 0 })
-  const [runsByOver, setRunsByOver] = useState(0)
-  const [wicketCount, setWicketCount] = useState(0)
-  const [totalOvers, setTotalOvers] = useState(0)
-  const [batters, setBatters] = useState([])
-  const [ballCount, setBallCount] = useState(0)
-  const [overCount, setOverCount] = useState(0)
-  const [recentOvers, setRecentOvers] = useState([])
-  const [batter1, setBatter1] = useState({})
-  const [batter2, setBatter2] = useState({})
-  const [battingOrder, setBattingOrder] = useState(0)
-  const [isBatter1Edited, setBatter1Edited] = useState(false)
-  const [isBatter2Edited, setBatter2Edited] = useState(false)
-  const [isBowlerEdited, setBowlerEdited] = useState(false)
-  const [bowler, setBowler] = useState({})
-  const [bowlers, setBowlers] = useState([])
-  const [inputBowler, setInputBowler] = useState('')
-  const [isModalOpen, setModalOpen] = React.useState(false)
-  const [outType, setOutType] = React.useState('')
-  const [runOutPlayerId, setRunOutPlayerId] = React.useState('')
-  const [remainingBalls, setRemainingBalls] = useState(0)
-  const [remainingRuns, setRemainingRuns] = useState(0)
-  const [strikeValue, setStrikeValue] = React.useState('strike')
-  const [isNoBall, setNoBall] = useState(false)
-  const [suggestions, setSuggestions] = useState([])
-  const [hasNameSuggested, setNameSuggested] = useState(false)
-  const [hasMatchEnded, setMatchEnded] = useState(false)
+  const [inningNo, setInningNo] = useState(1);
+  const [match, setMatch] = useState({
+      inning1: { batters: [], bowlers: [] },
+      inning2: { batters: [], bowlers: [] },
+  });
+  const [currentRunStack, setCurrentRunStack] = useState([]);
+  const [totalRuns, setTotalRuns] = useState(0);
+  const [extras, setExtras] = useState({ total: 0, wide: 0, noBall: 0 });
+  const [runsByOver, setRunsByOver] = useState(0);
+  const [wicketCount, setWicketCount] = useState(0);
+  const [totalOvers, setTotalOvers] = useState(0);
+  const [batters, setBatters] = useState([]);
+  const [ballCount, setBallCount] = useState(0);
+  const [overCount, setOverCount] = useState(0);
+  const [recentOvers, setRecentOvers] = useState([]);
+  const [batter1, setBatter1] = useState({});
+  const [batter2, setBatter2] = useState({});
+  const [battingOrder, setBattingOrder] = useState(0);
+  const [isBatter1Edited, setBatter1Edited] = useState(false);
+  const [isBatter2Edited, setBatter2Edited] = useState(false);
+  const [isBowlerEdited, setBowlerEdited] = useState(false);
+  const [bowler, setBowler] = useState({});
+  const [bowlers, setBowlers] = useState([]);
+  const [inputBowler, setInputBowler] = useState('');
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [outType, setOutType] = useState('');
+  const [runOutPlayerId, setRunOutPlayerId] = useState('');
+  const [remainingBalls, setRemainingBalls] = useState(0);
+  const [remainingRuns, setRemainingRuns] = useState(0);
+  const [strikeValue, setStrikeValue] = useState('strike');
+  const [isNoBall, setNoBall] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
+  const [hasNameSuggested, setNameSuggested] = useState(false);
+  const [hasMatchEnded, setMatchEnded] = useState(false);
 
-  let data = JSON.parse(localStorage.getItem('data'))
-  const { batting, team1, team2 } = data
-  const maxOver = parseInt(data.maxOver)
-  const history = useHistory()
+  // Parse data from localStorage, with a fallback in case data is null
+  const data = JSON.parse(localStorage.getItem('data')) || {};
+  console.log(data);
+  
+
+  // Destructure batting, team1, and team2 with defaults to prevent errors if data is missing
+  const { batting = [], team1 = '', team2 = '' } = data;
+  console.log(batting);
+  
+  const maxOver = parseInt(data.maxOver) || 0;
+
+  const history = useHistory();
 
   useEffect(() => {
     const endInningButton = document.getElementById('end-inning')
